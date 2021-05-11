@@ -36,7 +36,14 @@ export default function HomePage() {
           <p>loading...</p>
         ) : (
           allRequests.map((request) => {
-            return <RequestCard request={request} />;
+            return (
+              <Link
+                to={`./carerequestdetailspage/${request.id}`}
+                style={{ color: "black" }}
+              >
+                <RequestCard request={request} />
+              </Link>
+            );
           })
         )}
       </div>
