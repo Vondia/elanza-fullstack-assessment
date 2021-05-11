@@ -1,12 +1,49 @@
-const express = require('express');
+const express = require("express");
+const cors = require("cors");
 const app = express();
+const CareRequest = require("./models").careRequest;
 
-// this is the in-memory database ;)
-let counter = 0;
+const PORT = process.env.PORT || 8080;
 
-app.get('/api/data', function (req, res) {
-  counter++;
-  return res.json({name: 'sunshine', counter: counter});
+app.use(cors());
+app.use(express.json());
+
+// Fetching all care requests
+app.get("/carerequests", async (req, res, next) => {
+  try {
+    console.log("Im getting all the care requests");
+    const allCareRequests = await CareRequest.findAll({
+      order: [["startDate", "ASC"]],
+    });
+    res.status(200).send(allCareRequests);
+  } catch (error) {
+    next(error.message);
+  }
 });
 
-app.listen(process.env.PORT || 8080);
+// posting a new care request
+app.post("/carerequests", async (req, res) => {
+  const { clientName, careNeeded, startDate, endDate, extraInformation } =
+    req.body;
+  if (!clientName || !careNeeded || !startDate || !endDate) {
+    return res.status(400).send("Please provide all information needed");
+  }
+  try {
+    const newCareRequest = await CareRequest.create({
+      clientName,
+      careNeeded,
+      startDate,
+      endDate,
+      extraInformation,
+    });
+    res.status(201).json({ ...newCareRequest.dataValues });
+  } catch (error) {
+    if (error.name === "SequelizeUniqueConstraintError") {
+      return res.status(400).send({ message: "There is an error" });
+    }
+
+    return res.status(400).send({ message: "you added new care request" });
+  }
+});
+
+app.listen(PORT, () => console.log(`Listening on port: ${PORT}`));
