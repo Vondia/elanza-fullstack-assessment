@@ -1,24 +1,16 @@
-import React, { useState, useEffect }  from 'react';
-import logo from './logo.png';
-import './App.css';
+import React from "react";
+import { Switch, Route } from "react-router-dom";
+import "./App.css";
+import HomePage from "./pages/HomePage";
+import NewRequestPage from "./pages/NewRequestPage";
 
 function App() {
-  const [data, setData] = useState({ name: 'unknown', counter: 0 });
-
-  const fetchData = async () => {
-    const response = await fetch('/api/data');
-    const result = await response.json();
-    setData(result);
-  };
-
-  useEffect (() => {
-    fetchData();
-  }, []);
-
   return (
-    <div className="main">
-      <img src={logo} alt="" width="100" /><br />
-      Hello {data.name}, you called the backend {data.counter} times.
+    <div className="App">
+      <Switch>
+        <Route exact path="/" component={HomePage} />
+        <Route path="/newrequestpage" component={NewRequestPage} />
+      </Switch>
     </div>
   );
 }
