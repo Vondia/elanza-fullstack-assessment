@@ -46,4 +46,19 @@ app.post("/carerequests", async (req, res) => {
   }
 });
 
+//get an request by id
+app.get("/carerequests/:careRequestId", async (req, res, next) => {
+  try {
+    const requestId = parseInt(req.params.careRequestId);
+    const request = await CareRequest.findByPk(requestId);
+    if (!request) {
+      res.status(404).send("Request not found");
+    } else {
+      res.send(request);
+    }
+  } catch (e) {
+    next(e);
+  }
+});
+
 app.listen(PORT, () => console.log(`Listening on port: ${PORT}`));
