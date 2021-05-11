@@ -14,5 +14,6 @@ export function fetchOneRequest(id) {
     `);
     const carerequest = response.data;
     dispatch(careRequest(carerequest));
+    console.log("data here?", response.data);
   };
 }

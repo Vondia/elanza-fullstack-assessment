@@ -3,9 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import React, { useEffect } from "react";
 import { fetchOneRequest } from "../store/careRequestDetails/actions";
 import { selectCareRequestDetails } from "../store/careRequestDetails/selectors";
+import { Button } from "react-bootstrap";
 
 export default function CareRequestDetailsPage() {
   const { id } = useParams();
+  console.log("id", id);
   const dispatch = useDispatch();
   const careDetails = useSelector(selectCareRequestDetails);
 
@@ -33,7 +35,7 @@ export default function CareRequestDetailsPage() {
               <br />
               {detail.statusOpen}
               <br />
-              <button>Apply</button>
+              <Button>Apply</Button>
             </div>
           );
         })
