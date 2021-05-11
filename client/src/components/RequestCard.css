@@ -13,3 +13,9 @@ td {
   padding-bottom: 6px;
   width: 33%;
 }
+
+thead {
+  background-color: #51bbbc;
+  border: 1px solid black;
+  text-align: start;
+}
