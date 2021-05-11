@@ -7,6 +7,7 @@ import { selectCareRequests } from "../store/careRequest/selectors";
 import logo from "../logo.png";
 import RequestCard from "../components/RequestCard";
 import { Table } from "react-bootstrap";
+import "./HomePage.css";
 
 export default function HomePage() {
   const dispatch = useDispatch();
@@ -18,38 +19,31 @@ export default function HomePage() {
   }, [dispatch]);
 
   return (
-    <Container className="justify-content-center">
+    <Container>
       <Image src={logo} className="logo" />
       <div>
         <h2>Open requests</h2>
         <Table striped hover style={{ width: "60%" }}>
-          <thead
-            style={{
-              backgroundColor: "#51bbbc",
-              border: "1px solid black",
-              textAlign: "start",
-            }}
-          >
+          <thead>
             <tr>
               <th>Client name</th>
               <th>start date</th>
               <th>Care needed</th>
             </tr>
           </thead>
-
-          {!allRequests ? (
-            <p>loading...</p>
-          ) : (
-            allRequests.map((request) => {
-              return <RequestCard request={request} />;
-            })
-          )}
         </Table>
+        {!allRequests ? (
+          <p>loading...</p>
+        ) : (
+          allRequests.map((request) => {
+            return <RequestCard request={request} />;
+          })
+        )}
       </div>
 
       <div>
         <Link to={"/NewRequestPage"}>
-          <Button className="mt-3" variant="success">
+          <Button className="mt-2" variant="success">
             Add new request
           </Button>
         </Link>

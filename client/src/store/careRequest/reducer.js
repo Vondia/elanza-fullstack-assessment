@@ -6,6 +6,8 @@ export default function careRequest(state = initialState, action) {
       return {
         allCareRequests: action.payload,
       };
+    case "careRequest/add":
+      return { allCareRequests: [...state.allCareRequests, action.payload] };
     default:
       return state;
   }

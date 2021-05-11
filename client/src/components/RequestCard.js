@@ -12,9 +12,9 @@ export default function RequestCard({ request }) {
             <td>{request.clientName}</td>
             <td>{moment(request.startDate).format("dddd DD MMMM")}</td>
             <td>{request.careNeeded}</td>
-            <td style={{ textAlign: "center" }}>
+            {/* <td style={{ textAlign: "center" }}>
               <Button>Request details</Button>
-            </td>
+            </td> */}
           </tr>
         </tbody>
       </Table>
