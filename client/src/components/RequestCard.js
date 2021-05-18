@@ -1,6 +1,6 @@
 import React from "react";
 import moment from "moment";
-import { Container, Button } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import { Table } from "react-bootstrap";
 
 export default function RequestCard({ request }) {

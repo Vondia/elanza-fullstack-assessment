@@ -2,7 +2,8 @@ const initialState = { allCareRequests: [] };
 
 export default function careRequest(state = initialState, action) {
   switch (action.type) {
-    case "allCareRequests":
+    case "openStatusCareRequests":
+      // console.log(action.payload);
       return {
         allCareRequests: action.payload,
       };

@@ -35,11 +35,12 @@ export default function HomePage() {
         {!allRequests ? (
           <p>loading...</p>
         ) : (
-          allRequests.map((request) => {
+          allRequests.map((request, index) => {
             return (
               <Link
                 to={`./carerequestdetailspage/${request.id}`}
                 style={{ color: "black" }}
+                key={index}
               >
                 <RequestCard request={request} />
               </Link>

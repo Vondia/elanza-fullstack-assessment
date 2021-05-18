@@ -4,6 +4,8 @@ import React, { useEffect } from "react";
 import { fetchOneRequest } from "../store/careRequestDetails/actions";
 import { selectCareRequestDetails } from "../store/careRequestDetails/selectors";
 import { Button } from "react-bootstrap";
+import { changeCareStatus } from "../store/careRequestDetails/actions";
+import moment from "moment";
 
 export default function CareRequestDetailsPage() {
   const { id } = useParams();
@@ -21,21 +23,47 @@ export default function CareRequestDetailsPage() {
       {!careDetails ? (
         <p>loading...</p>
       ) : (
-        careDetails.map((detail) => {
+        careDetails.map((detail, index) => {
           return (
-            <div>
+            <div key={index}>
               Client Name: {detail.clientName},<br />
               Care Type: {detail.careNeeded}
               <br />
-              {detail.startDate}
+              {moment(detail.startDate).format("dddd DD MMMM")}
               <br />
-              {detail.endDate}
+              {moment(detail.endDate).format("dddd DD MMMM")}
               <br />
               {detail.extraInformation}
               <br />
               {detail.statusOpen}
               <br />
-              <Button>Apply</Button>
+              {detail.statusOpen ? (
+                <Button
+                  onClick={(e) => {
+                    e.preventDefault();
+
+                    dispatch(changeCareStatus(detail.id, detail.statusOpen));
+                    console.log(
+                      `this is the detail id:`,
+                      detail.id,
+                      detail.statusOpen
+                    );
+                  }}
+                >
+                  Apply
+                </Button>
+              ) : (
+                <Button
+                  onClick={(e) => {
+                    e.preventDefault();
+
+                    dispatch(changeCareStatus(detail.id, detail.statusOpen));
+                    console.log(`this is the detail id:`, detail.id);
+                  }}
+                >
+                  re-Open
+                </Button>
+              )}
             </div>
           );
         })

@@ -61,4 +61,24 @@ app.get("/carerequests/:careRequestId", async (req, res, next) => {
   }
 });
 
+// Update care request
+app.put("/carerequests/:careRequestId", async (req, res, next) => {
+  try {
+    const requestId = parseInt(req.params.careRequestId);
+    const request = await CareRequest.findByPk(requestId);
+
+    // Check if request exists
+    if (!request) {
+      res.status(404).send({ message: "Request not found" });
+    } else {
+      const updatedRequest = await request.update({
+        statusOpen: !request.statusOpen,
+      });
+      res.json(updatedRequest);
+    }
+  } catch (error) {
+    next(error.message);
+  }
+});
+
 app.listen(PORT, () => console.log(`Listening on port: ${PORT}`));
